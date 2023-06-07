@@ -1,3 +1,5 @@
+# SRIF
+
 This Estimation Subroutine Library (ESL) provides implementations of the
 algorithms described in the book "Factorization Methods for Discrete Sequential
 Estimation" (see below). Primarily UDU**T and SRIF based algorithms for solving
@@ -27,7 +29,7 @@ http://www.amazon.com/Factorization-Methods-Discrete-Sequential-Estimation/dp/04
 http://search.barnesandnoble.com/Factorization-Methods-for-Discrete-Sequential-Estimation/Gerald-J-Bierman/e/9780486449814/?itm=1
 
 
--- 
+--
 Keith H. Bierman   khbkhb@gmail.com
 5430 Nassau Circle East
 Cherry Hills Village, CO 80113
