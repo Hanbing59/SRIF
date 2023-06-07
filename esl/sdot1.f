@@ -1,0 +1,52 @@
+      DOUBLE PRECISION FUNCTION SDOT1(N,SX,INCX,SY,INCY)
+C
+C     RETURNS THE DOT PRODUCT OF SX AND SY.
+C     SDOT = SUM FOR I = 0 TO N-1 OF  SX(LX+I*INCX) * SY(LY+I*INCY),
+C     WHERE LX = 1 IF INCX .GE. 0, ELSE LX = (-INCX)*N, AND LY IS
+C     DEFINED IN A SIMILAR WAY USING INCY.
+C
+C       JACK DONGARRA, LINPACK, 3/11/78
+C
+C       COSMETIC MODS + USE DP ACCUM + RETURN DP RESULT KHB
+C
+      IMPLICIT REAL*8 (A-H,O-Z)
+
+      REAL*8 SX(*),SY(*)
+      DOUBLE PRECISION SUM
+      SUM = 0.0
+C
+      IF (N .LE. 0) GO TO 900
+      IF (INCX .EQ. 1 .AND. INCY .EQ. 1) GO TO 20
+C
+C    CODE FO UNEQUAL INCREMENTS OR EQUAL INCREMENTS NE 1
+C
+      IX = 1
+      IY = 1
+      IF (INCX .LT. 0) IX = (-N+1)*INCX+1
+      IF (INCY .LT. 0) IY = (-N+1)*INCY+1
+      DO 10 I = 1, N
+         SUM = SUM + SX(IX)*SY(IY)
+         IX = IX+INCX
+         IY = IY+INCY
+10    CONTINUE
+      GO TO 900
+C
+C    CODE FOR BOTH INCREMENTS = 1
+C
+ 20   CONTINUE
+      M = MOD(N,5)
+      IF (M .EQ. 0) GO TO 40
+      DO 30 I = 1, M
+         SUM = SUM + SX(I)*SY(I)
+ 30   CONTINUE
+      IF (N .LT. 5) GO TO 900
+ 40   CONTINUE
+      DO 50 I = M+1, N, 5
+         SUM = SUM + SX(I)*SY(I) + SX(I+1)*SY(I+1)+SX(I+2)*SY(I+2)+
+     1               SX(I+3)*SY(I+3)+SX(I+4)*SY(I+4)
+ 50   CONTINUE
+C                 COMMON EXIT
+900   CONTINUE
+      SDOT1 = SUM
+      RETURN
+      END
