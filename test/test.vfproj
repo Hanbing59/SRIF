@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject ProjectCreator="Intel Fortran" Keyword="Console Application" Version="11.0" ProjectIdGuid="{C8EB0DC8-6ADA-4D0F-ACC3-D98C9139C89B}">
+	<Platforms>
+		<Platform Name="Win32"/>
+		<Platform Name="x64"/></Platforms>
+	<Configurations>
+		<Configuration Name="Debug|Win32">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" WarnInterfaces="true" Traceback="true" BoundsCheck="true" StackFrameCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Debug|x64">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" WarnDeclarations="true" WarnUndeclaredExternals="true" WarnUnusedVariables="true" WarnTruncateSource="true" WarnInterfaces="true" Traceback="true" BoundsCheck="true" StackFrameCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|Win32">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|x64">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
+	<Files>
+		<Filter Name="esl" Filter="fi;fd;h;inc">
+		<File RelativePath="..\esl\brtsgn.f90"/>
+		<File RelativePath="..\esl\c2c.f90"/>
+		<File RelativePath="..\esl\cns.f90"/>
+		<File RelativePath="..\esl\cnsold.f90"/>
+		<File RelativePath="..\esl\cnsud.f90"/>
+		<File RelativePath="..\esl\cnsx.f90"/>
+		<File RelativePath="..\esl\cnsxud.f90"/>
+		<File RelativePath="..\esl\cov2ri.f90"/>
+		<File RelativePath="..\esl\cov2ud.f90"/>
+		<File RelativePath="..\esl\covcor.f90"/>
+		<File RelativePath="..\esl\d2u.f90"/>
+		<File RelativePath="..\esl\givens.f90"/>
+		<File RelativePath="..\esl\hhpost.f90"/>
+		<File RelativePath="..\esl\inf2r.f90"/>
+		<File RelativePath="..\esl\invtst.f90"/>
+		<File RelativePath="..\esl\lispos.f90"/>
+		<File RelativePath="..\esl\mapu.f90"/>
+		<File RelativePath="..\esl\p2p.f90"/>
+		<File RelativePath="..\esl\permut.f90"/>
+		<File RelativePath="..\esl\phiu.f90"/>
+		<File RelativePath="..\esl\pinvb.f90"/>
+		<File RelativePath="..\esl\pinvbm.f90"/>
+		<File RelativePath="..\esl\pinvek.f90"/>
+		<File RelativePath="..\esl\r2a.f90"/>
+		<File RelativePath="..\esl\ra.f90"/>
+		<File RelativePath="..\esl\rank1.f"/>
+		<File RelativePath="..\esl\rcolrd.f"/>
+		<File RelativePath="..\esl\ri2cov.f"/>
+		<File RelativePath="..\esl\rincon.f"/>
+		<File RelativePath="..\esl\rinz.f"/>
+		<File RelativePath="..\esl\rl2ru.f"/>
+		<File RelativePath="..\esl\rmprnt.f90"/>
+		<File RelativePath="..\esl\rnk1.f"/>
+		<File RelativePath="..\esl\rtmsx.f"/>
+		<File RelativePath="..\esl\ru2rl.f"/>
+		<File RelativePath="..\esl\rudr.f"/>
+		<File RelativePath="..\esl\sdot1.f"/>
+		<File RelativePath="..\esl\sfu.f"/>
+		<File RelativePath="..\esl\sgdcmp.f"/>
+		<File RelativePath="..\esl\sintst.f"/>
+		<File RelativePath="..\esl\stphiu.f"/>
+		<File RelativePath="..\esl\swpcov.f"/>
+		<File RelativePath="..\esl\swpucl.f"/>
+		<File RelativePath="..\esl\tdhht.f"/>
+		<File RelativePath="..\esl\thhc.f"/>
+		<File RelativePath="..\esl\tmprnt.f"/>
+		<File RelativePath="..\esl\tphiu.f"/>
+		<File RelativePath="..\esl\trcol.f"/>
+		<File RelativePath="..\esl\tthh.f"/>
+		<File RelativePath="..\esl\tzero.f"/>
+		<File RelativePath="..\esl\u2d.f"/>
+		<File RelativePath="..\esl\u2sig.f"/>
+		<File RelativePath="..\esl\u2u.f"/>
+		<File RelativePath="..\esl\ucol.f"/>
+		<File RelativePath="..\esl\ucola.f"/>
+		<File RelativePath="..\esl\ucolrd.f"/>
+		<File RelativePath="..\esl\ucolrdold.f"/>
+		<File RelativePath="..\esl\ucon.f"/>
+		<File RelativePath="..\esl\ud2cov.f"/>
+		<File RelativePath="..\esl\udgen.f"/>
+		<File RelativePath="..\esl\udmvec.f"/>
+		<File RelativePath="..\esl\udopt.f"/>
+		<File RelativePath="..\esl\umeas.f"/>
+		<File RelativePath="..\esl\utinv.f"/>
+		<File RelativePath="..\esl\utirow.f"/>
+		<File RelativePath="..\esl\wgsg.f"/>
+		<File RelativePath="..\esl\wxy2u.f"/>
+		<File RelativePath="..\esl\wxya2u.f"/>
+		<File RelativePath="..\esl\xy2u.f"/></Filter>
+		<File RelativePath=".\test.f90"/></Files>
+	<Globals/></VisualStudioProject>

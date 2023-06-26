@@ -1,0 +1,77 @@
+!! Purpose    : REARRANGE THE ROWS AND COLUMNS OF MATRIX P(LIN,LIN) IN NAMIN
+!!              ORDER AND PUT THE RESULT IN P(LOUT,LOUT) IN NAMOUT ORDER.
+!!              ZERO COLUMNS AND ROWS ARE ASSOCIATED WITH OUTPUT DEFINED NAMES
+!!              THAT ARE NOT CONTAINED IN NAMIN.
+!! Parameters :
+!!              P --- INPUT MATRIX, VECTOR STORED.
+!!            LIN --- NO. OF PARAMETER NAMES ASSOCIATED WITH THE INPUT P
+!!          NAMIN --- PARAMETER NAMES ASSOCIATED WITH C ON INPUT.
+!!                    L = MAX(LIN,LOUT). (ONLY THE FIRST LIN ENTRIES APPLY
+!!                    TO THE INPUT C) (NOTE: DIM(NAMIN) .GE. DIM(NAMOUT))
+!!                    UP TO 16 CHARACTER NAMES ARE ALLOWED. NAMIN IS DESTROYED
+!!                    DURING PROCESSING.
+!!           LOUT --- NO. OF PARAMETER NAMES ASSOCIATED WITH THE OUTPUT P
+!!         NAMOUT --- PARAMETER NAMES ASSOCIATED WITH THE OUTPUT P (ALSO UP
+!!                    TO 16 CHARACTER NAMES)
+
+SUBROUTINE P2P(P,LIN,NAMIN,LOUT,NAMOUT)
+
+implicit none
+
+real*8       P(*)
+integer*4    LIN
+CHARACTER(*) NAMIN(*)
+integer*4    LOUT
+CHARACTER(*) NAMOUT(LOUT)
+!local
+integer*4    N1,I,J,NTR,IPOS
+EXTERNAL     LISPOS,SWPCOV
+
+
+N1 = LIN
+! STEP #1 REMOVE NAMIN COLUMNS NOT APPEARING IN NAMOUT
+DO J = LIN,1,-1
+    CALL LISPOS(NAMIN(J),NAMOUT,LOUT,IPOS)
+    IF (IPOS.EQ.0) THEN
+        ! NAMIN(J) IS NOT IN NAMOUT
+        NTR = J*(J+1)/2
+        DO I = NTR-IPOS+1,NTR
+            P(I) = 0.0
+        enddo
+        NTR = J
+        DO I = J,LIN
+            P(NTR) = 0.0
+            NTR    = NTR+I
+        enddo
+        NAMIN(J) = ' '
+    ENDIF
+enddo
+DO J = LIN+1, LOUT
+    NAMIN(J) = ' '
+enddo
+! STEP #2 ADD COLUMNS OF ZEROS FOR EACH NAMOUT NOT IN NAMIN
+DO J = 1, LOUT
+    CALL LISPOS(NAMOUT(J),NAMIN,LIN,IPOS)
+    IF(IPOS.EQ.0) THEN
+        ! FIND A BLANK COLUMN
+        CALL LISPOS(' ',NAMIN,LIN,IPOS)
+        IF(IPOS.EQ.0) THEN
+            N1   = N1+1
+            IPOS = N1
+        ENDIF
+        NAMIN(IPOS) = NAMOUT(J)
+        NTR = IPOS*(IPOS+1)/2
+        DO I = NTR-IPOS+1,NTR
+            P(I) = 0.0
+        enddo
+    ENDIF
+enddo
+! STEP #3 NOW P (AND NAMIN) HAS ALL THE NAMOUT STATES, BUT
+! IN THE WRONG ORDER
+
+DO I = 1, LOUT
+    CALL LISPOS(NAMOUT(I),NAMIN,LOUT,IPOS)
+    CALL SWPCOV(P,LOUT,NAMIN,I,IPOS)
+enddo
+RETURN
+END

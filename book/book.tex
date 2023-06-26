@@ -1,0 +1,95 @@
+\documentclass[a4paper,11pt,twoside,openright]{report}
+
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{makeidx}
+\usepackage{fancyhdr}
+\usepackage{abraces}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{booktabs}
+
+\titleformat{\chapter}[display]{\huge\bfseries}{}{0pt}{}
+\makeindex
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhead{}
+%Headers of Left-Even and Right-Odd pages
+\fancyhead[LE,RO]{\bfseries\thepage}
+%Headers of Left-Odd pages
+\fancyhead[LO]{\bfseries\rightmark}
+%Headers of Right-Even pages
+\fancyhead[RE]{\bfseries\leftmark}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{}
+
+\setlength{\headheight}{14pt}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\title{离散序列估计的矩阵分解方法}
+\author{\href{http://www.malcolmdshuster.com/Pub_1988a_J_GJB-obit_scan.pdf}{Gerald Jack Bierman}}
+\date{1977}
+
+\bibliographystyle{plain}
+
+%Packages that are required to be loaded as late as possible according to their documentations
+\usepackage{subfiles}
+\usepackage[colorlinks=true]{hyperref}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Gerald Jack Bierman的著作—Factorization Methods for Discrete Sequential Estimation一书的中译本
+    \footnote{更新于\today}. 内容与排版均尽量忠于英文原版，但根据译者自己的理解并考虑到整书的系统性，
+    也会作出适当的补充和修改，推荐对照英文原版进行阅读。
+\end{abstract}
+
+\tableofcontents
+
+\chapter{引言}
+\subfile{./Ch01.tex}
+
+\chapter{最小二乘数据处理与Kalman滤波算法回顾}
+\subfile{./Ch02.tex}
+
+\chapter{正定矩阵、Cholesky分解以及一些应用}
+\subfile{./Ch03.tex}
+
+\chapter{Householder正交变换}
+\subfile{./Ch04.tex}
+
+\chapter{序贯平方根数据处理}
+\subfile{./Ch05.tex}
+
+\chapter{状态转移和过程噪声的引入}
+\subfile{./Ch06.tex}
+
+\chapter{偏差与相关过程噪声的处理}
+\subfile{./Ch07.tex}
+
+\chapter{不准确的模型变量与滤波先验统计信息影响的协方差分析}
+\subfile{./Ch08.tex}
+
+\chapter{不准确的模型变量与滤波先验统计信息影响的SRIF误差分析}
+\subfile{./Ch09.tex}
+
+\chapter{平方根信息平滑}
+\subfile{./Ch10.tex}
+
+\printindex
+
+\end{document}

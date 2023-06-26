@@ -1,4 +1,15 @@
-# SRIF
+# Square Root Information Filter
+
+## Files and Folders
+- ./book: translated Chinese version of the book "Factorization Methods for Discrete Sequential Estimation"
+- ./doc: documentation of the ESL
+- ./esl: the Estimation Subroutine Library (ESL)
+- ./test: a Visual Studio project for testing the ESL
+- ./gitignore
+- ./README.md: the current file
+- ./SRIF.sln: the Visual Studio solution that hosts the test project of the ESL
+
+## Estimation Subroutine Library (ESL)
 
 This Estimation Subroutine Library (ESL) provides implementations of the
 algorithms described in the book "Factorization Methods for Discrete Sequential
@@ -23,13 +34,9 @@ There's a Creative Commons license and some historical overview (from
 20+ years ago) in the file brtsgn.f.
 
 
-ISBN 720 876 1333
-http://store.doverpublications.com/0486449815.htm
-http://www.amazon.com/Factorization-Methods-Discrete-Sequential-Estimation/dp/0486449815/ref=pd_bbs_sr_1?ie=UTF8&s=books&qid=1204522450&sr=8-1
-http://search.barnesandnoble.com/Factorization-Methods-for-Discrete-Sequential-Estimation/Gerald-J-Bierman/e/9780486449814/?itm=1
-
-
---
+---
 Keith H. Bierman   khbkhb@gmail.com
 5430 Nassau Circle East
 Cherry Hills Village, CO 80113
+
+##

@@ -1,0 +1,71 @@
+!! Purpose    : COLORED NOISE SMOOTHING ALGORITHM ESTIMATE UPDATE, FROM TIME
+!!              T BACK TO TIME T-DT
+!! Parameters :
+!!              XSTAR --- SMOOTH ESTIMATE AT TIME T
+!!                        For output, UPDATED SMOOTHED ESTIMATE AT TIME T-DT
+!!                  N --- STATE VECTOR DIMENSION
+!!                  A --- SMOOTHER GAIN MULTPLIER MATRIX GENERATED DURING
+!!                        FILTER COLORED NOISE TIME PROPAGATION STEP
+!!              IMAXA --- ROW DIMENSION OF A
+!!                 NP --- NUMBER OF COLORED NOISE PARAMETERS
+!!              XPRED --- FILTER DETERMINISTIC TIME PREDICTION AT TIME T
+!!                        For output, FILTER TIME PREDICTION AT TIME T, I.E. THE
+!!                        MARKOV STATE FILTER ESTIMATES AT TIME T-DT
+!!                        ARE TIME PROPAGATED TO TIME T, AND THE OTHER
+!!                        FILTER PREDICTION ESTIMATES ARE LEFT UNCHANGED.
+!!                 EM --- COLORED NOISE EXPONENTIAL MODEL MULTIPLIERS
+!!                  Q --- PROCESS  NOISE VARIANCES ASSOCIATED WITH THE
+!!                        COLORED  NOISE UPDATE
+!!                 IP --- PROCESS NOISE COMPONENT LOCATIONS
+
+SUBROUTINE CNSX(XSTAR,N,A,IMAXA,NP,XPRED,EM,Q,IP,F,DX)
+
+implicit none
+
+real*8    XSTAR(N)
+integer*4 N
+real*8    A(IMAXA,NP)
+integer*4 IMAXA
+integer*4 NP
+real*8    XPRED(N)
+real*8    EM(NP)
+real*8    Q(NP)
+integer*4 IP(NP)
+real*8    F(NP),DX(N)
+!local
+real*8    SUM,C,EX,GAMMA
+integer*4 NPP1,JP,K,I,L,MPL
+
+NPP1=NP+1
+DO JP=1,NP
+    K=IP(JP)
+    F(JP)=XPRED(K)
+    XPRED(K)=EM(JP)*XPRED(K)
+enddo
+! SAVE MARKOV ESTIMATES AT TIME T-DT AND ADJUST XPRED
+DO I=1,N
+    DX(I)=XSTAR(I)-XPRED(I)
+enddo
+DO L=1,NP
+    JP=NPP1-L
+    C=Q(JP)
+    EX=EM(JP)
+    ! FORM DX, IN EQN (36)
+    MPL=IP(JP)
+    ! GAMMA DEFINED BY EQN (22P)
+    GAMMA=EX * EX + C * A(MPL,JP)
+    DX(MPL) = -F(JP)
+    SUM = 0.0
+    DO I=1,N
+        SUM = SUM + A(I,JP) * DX(I)
+    enddo
+    ! SEE EQN (24P), SUM =(V**T)*DX
+    ! UPDATE MARKOV STATE
+    XSTAR(MPL)=(EX*XSTAR(MPL)-C*SUM)/GAMMA
+    ! NOTE GAMMA IS POSITIVE UNLESS EM AND Q ARE BOTH ZERO
+    ! ADJUST DX ELEMENT FOR NEXT CYCLE OF LOOP
+    DX(MPL)=XSTAR(MPL)+DX(MPL)
+enddo
+
+RETURN
+END

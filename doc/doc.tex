@@ -1,0 +1,70 @@
+\documentclass[a4paper,11pt,twoside,openright]{report}
+
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{makeidx}
+\usepackage{fancyhdr}
+\usepackage{abraces}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{booktabs}
+
+\titleformat{\chapter}[display]{\huge\bfseries}{}{0pt}{}
+\makeindex
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhead{}
+%Headers of Left-Even and Right-Odd pages
+\fancyhead[LE,RO]{\bfseries\thepage}
+%Headers of Left-Odd pages
+\fancyhead[LO]{\bfseries\rightmark}
+%Headers of Right-Even pages
+\fancyhead[RE]{\bfseries\leftmark}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{}
+
+\setlength{\headheight}{14pt}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\title{SRIF}
+\author{Hanbing Peng $<$\href{mailto:hanbing.peng@outlook.com}{hanbing.peng@outlook.com}$>$}
+\date{\today}
+
+\bibliographystyle{plain}
+
+%Packages that are required to be loaded as late as possible according to their documentations
+\usepackage{subfiles}
+\usepackage[colorlinks=true]{hyperref}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    This document, compiled by \LaTeX, serves as a supplementary material to the
+    \emph{SRIF}\footnote{Last updated on \today}.
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Introduction}
+\subfile{./Ch01.tex}
+
+\appendix
+\chapter{Estimation Subroutine Library}
+\subfile{./Ap01.tex}
+
+\printindex
+
+\end{document}

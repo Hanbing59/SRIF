@@ -1,0 +1,45 @@
+!! Purpose    : COMPUTE THE CORRELATION MATRIX RHO, FROM AN INPUT COVARIANCE
+!!              MATRIX COV. BOTH MATRICES ARE UPPER TRIANGULAR VECTOR STORED.
+!!              IF THE COMPILER ALLOWS, THE CORRELATION MATRIX RESULT CAN
+!!              OVERWRITE THE INPUT COVARIANCE
+!!
+!! Parameters :
+!!              COV --- INPUT VECTOR STORED POSITIVE SEMI-DEFINITE COVARIANCE MATRIX
+!!                N --- NUMBER OF PARAMETERS, N.GE.1
+!!              RHO --- OUTPUT VECTOR STORED CORRELATION MATRIX,
+!!                      RHO(IJ)=COV(IJ)/(SIGMA(I)*SIGMA(J))
+
+
+
+SUBROUTINE COVCOR(COV,N,RHO,V)
+
+implicit none
+
+real*8    COV(*)
+integer*4 N
+real*8    RHO(*),V(N)
+!local
+integer*4 I,J,JJ,IJ
+real*8    EPS,S,Z,ONE
+DATA Z/0.0D0/, ONE/1.0D0/
+DATA EPS/1.0D-307/
+
+JJ=0
+DO J=1,N
+    JJ=JJ+J
+    V(J)=Z
+    S = COV(JJ)
+    IF(S.GT.EPS) V(J)=ONE/DSQRT(S)
+enddo
+IJ=0
+DO J=1,N
+    S=V(J)
+    DO I=1,J
+        IJ=IJ+1
+        RHO(IJ)=COV(IJ)*S*V(I)
+    enddo
+    RHO(IJ) = 1.0
+enddo
+
+RETURN
+END

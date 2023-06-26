@@ -1,0 +1,157 @@
+\documentclass[./doc.tex]{subfiles}
+\begin{document}
+
+\section{Subroutines}
+
+\subsection{BRTSGN}
+Compute the Bierman modified R-T-S smooth gain factors for colored noise model
+\begin{gather}
+    \bm{X}_{T+}=\bm{\Phi}_M \bm{X}_{T-} + \bm{BW}_{T} \\
+    \bm{\Phi}_M=\bm{I} + (M-1)\bm{E}_{ip}\bm{E}_{ip}^{\textrm{T}} \\
+    \bm{E}_{ip}(j)=\begin{cases}
+        0 & j \ne ip \\
+        1 & j = ip
+    \end{cases}
+\end{gather}
+
+Calls: GIVENS
+
+\subsection{C2C}
+Rearrange a parameters list-associated matrix according to a given list of parameters.
+
+\subsection{CNS}
+Colored Noise UD Smoother
+
+Calls: UDGEN
+
+\subsection{CNSUD}
+Colored Noise Smooth U-D covariance factor update to account for possible off-diagonal
+process noise components.
+
+Dynamic model
+\begin{equation}
+    \begin{bmatrix}
+        \bm{X}_{i+1} \\
+        p_{i+1}      \\
+        \bm{Y}
+    \end{bmatrix} =
+    \begin{bmatrix}
+        \bm{I} & 0  & \bm{0} \\
+        \bm{0} & EM & \bm{0} \\
+        \bm{0} & 0  & \bm{I}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \bm{X}_{i} \\
+        p_{i}      \\
+        \bm{Y}
+    \end{bmatrix} +
+    \begin{bmatrix}
+        \bm{B}_{\bm{X}} \\
+        1               \\
+        \bm{0}
+    \end{bmatrix} W_i
+\end{equation}
+
+Calls: UDOPT, UCON, RNK1
+
+\subsection{CNSX}
+Colored Noise Smoothing algorithm estimate update, from time \(t\) back to time \(t-dt\).
+
+\subsection{CNSXUD}
+Colored Noise Smoothing algorithm estimate update, simple process noise component
+adjustment, from time \(t\) back to time \(t-dt\).
+
+Process noise model multiplier matrix \(\bm{B}_{\bm{X}/j}\),
+\begin{equation}
+    \bm{X}_{j+1} = \bm{\Phi}_{\bm{X}} \bm{X}_j + \bm{B}_{\bm{X}/1} W_{j}(1) + \cdots + \bm{B}_{\bm{X}/N_p} W_{j}(N_p)
+\end{equation}
+where \(W_j\) are the process noise components.
+
+\subsection{COV2RI}
+Construct the upper triangular Cholesky factor \(\bm{U}\) of a positive semi-definite covariance matrix
+\(\bm{P}\) (note that \(\bm{P}\) is symmetric), i.e.,
+\begin{equation}
+    \bm{P}=\bm{U}\bm{U}^{\textrm{T}}
+\end{equation}
+
+\subsection{COV2UD}
+Construct the U-D factors \(\bm{U}\) and \(\bm{D}\) of a positive semi-definite covariance matrix
+\(\bm{P}\) (note that \(\bm{P}\) is symmetric), i.e.,
+\begin{equation}
+    \bm{P}=\bm{U}\bm{D}\bm{U}^{\textrm{T}}
+\end{equation}
+
+\subsection{COVCOR}
+Compute the correlation matrix \(\bm{\rho}\) for a covariance matrix \(\bm{P}\), \(\rho_{ij}=P_{ij}/(\sqrt{P_{ii}P_{jj}})\).
+
+\subsection{D2U}
+Update a contiguous part of the diagonal elements of a U-D factor, i.e., \(\bm{D}\).
+
+\subsection{GIVENS}
+Given an vector \([a \thickspace b]^\textrm{T}\), compute the Givens rotation parameters \(c\), \(s\) and \(\sigma\) so that
+\begin{equation}
+    \begin{bmatrix*}[r]
+        c & s \\
+        s & -c
+    \end{bmatrix*}
+    \begin{bmatrix}
+        a \\
+        b
+    \end{bmatrix} = \begin{bmatrix}
+        \sigma \\
+        0
+    \end{bmatrix}
+\end{equation}
+
+\subsection{HHPOST}
+Triangularize a rectangular matrix by orthogonal transformation.
+
+\subsection{INF2R}
+Compute the Cholesky factor for an information matrix.
+
+\subsection{INVTST}
+Compute the measurement innovations variance \( \alpha = H\bm{P}H^{\textrm{T}} + R\) using the
+U-D covariance factors of \(\bm{P}\).
+
+\subsection{LISPOS}
+Search a string list for a given string.
+
+\subsection{MAPU}
+Compute mapped covariance \(\bm{P}_{\textrm{out}}=(\bm{\Phi}\bm{U})\bm{D}(\bm{\Phi}\bm{U})^{\textrm{T}}\).
+
+Calls: PHIU
+
+\subsection{P2P}
+Similar to C2C.
+
+\subsection{PERMUT}
+Similar to C2C.
+
+\subsection{PHIU}
+Compute \(\bm{W}=\bm{\Phi}\bm{U}\) where \(\bm{\Phi}\) is a rectangular matrix with implicitly
+defined columns of trailing zeros and \(\bm{U}\) is a vector stored upper triangular matrix.
+
+\subsection{PINVB}
+Compute solution \(\bm{v}\) to equation \(\bm{P}\bm{v}=\bm{B}\) where \(\bm{P}=\bm{U}\bm{D}\bm{U}^{\textrm{T}}\).
+
+\subsection{PINVBM}
+Compute solution \(\bm{v}\) to equation \(\bm{P}\bm{v}=\bm{BM}\) where
+\(\bm{P}=\bm{U}\bm{D}\bm{U}^{\textrm{T}}\) and \(BM(j)=EM\times B(j), j=1,\cdots, N_x\).
+
+Calls: U2SIG
+
+\subsection{PINVEK}
+Compute solution \(\bm{v}\) to equation \(\bm{P}\bm{v}=\bm{E}_k\) where
+\(\bm{P}=\bm{U}\bm{D}\bm{U}^{\textrm{T}}\) and \(\bm{E}_k\) has unity in element \(k\), i.e.,
+compute column \(k\) of \(\bm{P}^{-1}\).
+
+\subsection{R2A}
+Restore a vector-stored triangular matrix \(\bm{R}\) to a 2-D matrix \(\bm{A}\) and
+arrange the columns to match the given parameters list.
+
+\subsection{RA}
+Partly compute the product \(\bm{W}=\bm{R}\bm{A}\) where \(\bm{R}\) is a vector-stored triangular
+matrix.
+
+
+\end{document}
