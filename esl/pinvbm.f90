@@ -26,8 +26,6 @@
 !!                    J, ESTIMATE COMPUTATION FAILED BECAUSE DIAGONAL "J" OF
 !!                       U ARRAY IS TOO SMALL. BETA NOT COMPUTED
 
-
-
 SUBROUTINE PINVBM (U,N,B,NX,K,EM,Q,IEST,XEST,V,IERR)
 
 implicit none

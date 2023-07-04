@@ -153,5 +153,18 @@ arrange the columns to match the given parameters list.
 Partly compute the product \(\bm{W}=\bm{R}\bm{A}\) where \(\bm{R}\) is a vector-stored triangular
 matrix.
 
+\subsection{RANK1}
+Rank one modification of the Cholesky Factorization, i.e., Agee-Turner PD Factorization uodate
+\(\bm{\bar{U}} \bm{\bar{D}} \bm{\bar{U}}^{\textrm{T}}=\bm{U} \bm{D} \bm{U}^{\textrm{T}} + c \bm{a} \bm{a}^{\textrm{T}}\).
+
+\subsection{RCOLRD}
+Add in Markov colored noise model effects into the Square Root Information Filter (SRIF), and generate weighting
+coefficients for smoothing. Each component in the state variables vector \(\bm{X}\) satisfies
+\(x_{j+1} = e_M x_j + w_j\), where \(e_M\) is the colored noise mapping coefficient (generally of exponential
+form, \(e_M = e^{-dt/\tau}\)).
+
+\subsection{RI2COV}
+Compute the standard deviations and, if desired, the covariance matrix of a vector stored upper triangular
+square root covariance matrix.
 
 \end{document}

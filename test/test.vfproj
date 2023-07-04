@@ -71,9 +71,9 @@
 		<File RelativePath="..\esl\pinvek.f90"/>
 		<File RelativePath="..\esl\r2a.f90"/>
 		<File RelativePath="..\esl\ra.f90"/>
-		<File RelativePath="..\esl\rank1.f"/>
-		<File RelativePath="..\esl\rcolrd.f"/>
-		<File RelativePath="..\esl\ri2cov.f"/>
+		<File RelativePath="..\esl\rank1.f90"/>
+		<File RelativePath="..\esl\rcolrd.f90"/>
+		<File RelativePath="..\esl\ri2cov.f90"/>
 		<File RelativePath="..\esl\rincon.f"/>
 		<File RelativePath="..\esl\rinz.f"/>
 		<File RelativePath="..\esl\rl2ru.f"/>
