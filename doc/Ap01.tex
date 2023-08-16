@@ -153,7 +153,7 @@ arrange the columns to match the given parameters list.
 Partly compute the product \(\bm{W}=\bm{R}\bm{A}\) where \(\bm{R}\) is a vector-stored triangular
 matrix.
 
-\subsection{RANK1}
+\subsection{RANK1/RNK1}
 Rank one modification of the Cholesky Factorization, i.e., Agee-Turner PD Factorization uodate
 \(\bm{\bar{U}} \bm{\bar{D}} \bm{\bar{U}}^{\textrm{T}}=\bm{U} \bm{D} \bm{U}^{\textrm{T}} + c \bm{a} \bm{a}^{\textrm{T}}\).
 
@@ -166,5 +166,58 @@ form, \(e_M = e^{-dt/\tau}\)).
 \subsection{RI2COV}
 Compute the standard deviations and, if desired, the covariance matrix of a vector stored upper triangular
 square root covariance matrix.
+
+\subsection{RINCON}
+Compute the inverse of an upper triangular vector stored matrix and its condition number estimate.
+
+\subsection{RINZ}
+Compute the solution vector \(\bm{x}\) to the matrix equation \(\bm{R} \bm{x} = \bm{Z}\), where
+\(\bm{R}\) is an upper triangular vector stored matrix.
+
+\subsection{RL2RU}
+Copy the lower right portion of a vector stored upper triangular matrix into the upper left corner
+block of another vector stored upper triangular matrix.
+
+\subsection{RMPRNT}
+Print a rectangular vector stored matrix.
+
+\subsection{RTMSX}
+Multiply a vector stored matrix with a vector, i.e., calculate \(\bm{R}\bm{x}\).
+
+\subsection{RU2RL}
+Copy the upper left portion of a vector stored upper triangular matrix into the lower right corner
+block of another vector stored upper triangular matrix.
+
+\subsection{RUDR}
+Transform an upper triangular vector stored SRIF matrix to UD form or vice versa.
+
+Calls: RINCON
+
+\subsection{SDOT1}
+Calculte the dot product of
+\begin{equation}
+    \sum_{i=0}^{N-1} S_x(l_x + i \cdot inc_x) \cdot S_y(l_y + i \cdot inc_y)
+\end{equation}
+where \(l_x=1\) if \(inc_x \ge 0\). Otherwise, \(l_x=(-inc_x) \cdot N\). \(l_y\) is defined in a similar way using \(inc_y\).
+
+\subsection{SFU}
+Compute \(\bm{W}=\bm{F} \bm{U}\) where \(\bm{F}\) is a sparse matrix with only the non-zero elements are defined,
+and \(\bm{U}\) is a vector-stored upper triangular matrix with implicitly defined unit diagonal elements.
+
+\subsection{SGDCMP}
+Compute and display the U-D sigma decomposition associated with the covariance matrix
+\(\bm{UD}\bm{U}^{\textrm{T}}\).
+
+Calls: RMPRNT, TMPRNT
+
+\subsection{SINTST}
+Compute the measurement prediction (innovations) variance,
+\begin{equation}
+    \alpha = \bm{H}\bm{R}^{-1}\bm{R}^{-\textrm{T}}\bm{H}^{\textrm{T}} + 1
+\end{equation}
+
+\subsection{STPHIU}
+Compute \(\bm{\Phi}\cdot \bm{U}\) where \(\bm{\Phi}\) is an unit triangular sparse matrix and \(\bm{U}\) is
+a vector stored upper triangular matrix with implicitly defined unit diagonal elements.
 
 \end{document}

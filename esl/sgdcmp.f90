@@ -1,0 +1,129 @@
+!! Purpose    : TO COMPUTE AND DISPLAY THE U-D SIGMA DECOMPOSITION ASSOCIATED
+!!              WITH THE COVARIANCE MATRIX UDU**T
+!! Parameters :
+!!
+!!              UIN --- INPUT U-D VECTOR STORED UPPER TRIANGULAR
+!!                      ARRAY WITH D ENTRIES STORED ALONG THE
+!!                      DIAGONAL OF UIN.
+!!             UOUT --- OUTPUT U-D VECTOR STORED UPPER TRIANGULAR
+!!                      SIGMA DECOMPOSITION. UOUT MAY OVERWRITE UIN.
+!!                      NOTE: DIAGONAL ZEROS CAUSE THAT COLUMN TO
+!!                            BECOME ZERO FILLED.
+!!                N --- DIMENSION OF THE ASSOCIATED ESTIMATE, N > 1.
+!!           WNTSIG --- LOGICAL FLAG TO INCLUDE STANDARD DEVIATION
+!!                      PRINTED OUTPUT.
+!!            SIGMA --- OUTPUT VECTOR OF ESTIMATE ERROR STANDARD DEVIATIONS
+!!
+!!                      SIGMA(I)=SQRT(D(I)+D(I+1)*U(I,I+1)**2+...+D(N)*U(I,N)**2)
+!!                      UOUT(I,J)=U(I,J)*SQRT(D(J))/SIGMA(I)
+!!                      UOUT(I,I)=SQRT(D(I))/SIGMA(I)
+!!                      (IF SIGMA(I)=0., THE ASSOCIATED ROW OF UOUT IS SET TO ZERO
+!!                      THE ROW SUM OF SQUARES OF UOUT SUMS TO UNITY, AND UOUT(1,I)
+!!                      IS THE FRACTIONAL PART OF OUTPUT SIGMA(1) THAT IS ASSOCIATED
+!!                      WITH THE MODELING OF VARIABLES 1 UP TO AND INCLUDING I.
+!!                      UOUT(I,J), IS THE FRACTIONAL PART OF UOUT SIGMA(I)
+!!                      ATTRIBUTABLE TO ESTIMATE STATE(J). THE UOUT ARRAY, DISPLAYED
+!!                      IN TRIANGULAR FORM, IS A KIND OF CORRELATION MATRIX.
+!!            NAMES --- CHARACTER*(*) VECTOR OF VARIABLE NAMES.
+!!           NAMFLG --- LOGICAL FLAG.
+!!                      IF .TRUE., NAMES WILL BE USED ON OUTPUT, NAMES(N) WILL BE
+!!                                 ASSUMED TO HAVE ALPHANUMERIC DATA.
+!!                      IF .FALSE., NUMBERS WILL BE USED IN PLACE OF LABELS.
+!!            TITLE --- CHARACTER*(*) OUTPUT TITLE.
+!!             CODE --- (CHARACTER*(*)) IF THE LETTER "P" APPEARS THEN A PAGE
+!!                      EJECT WILL PRECEDE PRINTING, IF THE LETTER "C" APPEARS
+!!                      CONDENSED PRINT WILL BE PRODUCED (I.E. LESS PRECISION,
+!!                      MORE COLUMNS PER ROW) THE DEFAULT (' ') CAUSES PRINTING
+!!                      TO BEGIN AT THE NEXT LINE AND DISPLAYS 6 COLUMNS WITH
+!!                      8 DIGITS OF PRECISION. CONDENSED MODE CONSISTS OF 11
+!!                      COLUMNS OF 4 DIGIT PRECISION.
+!!           PRTNAM --- LABEL FOR RNUM (SIMPLY PASSED TO RMPRNT AND TMPRNT)
+!!             RNUM --- REAL NUMBER   (SIMPLY PASSED TO RMPRNT AND TMPRNT)
+!!           IOUNIT --- UNIT NUMBER OF OUTPUT DEVICE. WHEN IOUNIT .EQ. 0 THEN OUTPUT
+!!                      IS SUPPRESSED.
+
+SUBROUTINE SGDCMP(UIN,UOUT,N,WNTSIG,SIGMA,NAMES,NAMFLG,TITLE,CODE,PRTNAM,RNUM,IOUNIT)
+
+IMPLICIT none
+
+real*8       UIN(*)
+real*8       UOUT(*)
+integer*4    N
+LOGICAL      WNTSIG
+real*8       SIGMA(N)
+CHARACTER(*) NAMES(N)
+LOGICAL      NAMFLG
+CHARACTER(*) TITLE
+CHARACTER(*) CODE
+CHARACTER(*) PRTNAM
+real*8       RNUM
+integer*4    IOUNIT
+!local
+real*8       SUM
+integer*4    NM1,JJ,J,KK,K,JKS,JP1
+external     RMPRNT,TMPRNT
+
+IF(IOUNIT.NE.0) THEN
+    IF(INDEX(CODE,'P').NE.0 .OR. INDEX(CODE,'p').NE.0) THEN
+        WRITE (IOUNIT,'(1H1)')
+    ELSE
+        WRITE(IOUNIT,*)
+        WRITE(IOUNIT,*)
+    ENDIF
+    WRITE(IOUNIT,*) TITLE
+ENDIF
+
+NM1=N-1
+JJ=0
+DO J=1,N
+    JJ=JJ+J
+    !NOTE:  HERE SIGMAS ARE USED FOR TEMPORARY STORAGE
+    SIGMA(J)=UIN(JJ)
+    UOUT(JJ)=SQRT(SIGMA(J))
+enddo
+JJ=0
+IF(NM1.le.0) then
+    KK = 1
+else
+    DO J=1,NM1
+        JJ=JJ+J
+        !SUM= SCALED DIAGONAL OF UD
+        SUM=SIGMA(J)
+        !JKS = STARTING INDEX (J,K)=(J,J+1)
+        JKS=JJ+J
+        KK=JJ
+        JP1=J+1
+        DO K=JP1,N
+            SUM=SUM + SIGMA(K)*UIN(JKS)**2
+            KK=KK+K
+            UOUT(JKS)=UOUT(KK)*UIN(JKS)
+            JKS=JKS+K
+        enddo
+        SUM=DSQRT(SUM)
+        SIGMA(J)=SUM
+        JKS=JJ
+        IF(SUM.LE.0.0) THEN
+            DO K=J,N
+                UOUT(JKS)=0.0
+                JKS=JKS+K
+            enddo
+            cycle
+        ENDIF
+        DO K=J,N
+            UOUT(JKS)=UOUT(JKS)/SUM
+            JKS=JKS+K
+        enddo
+    enddo
+endif
+
+SIGMA(N)= UOUT(KK)
+IF(UOUT(KK).NE.0.0) UOUT(KK) = 1.0
+
+IF(WNTSIG) CALL RMPRNT(SIGMA,1,1,N,NAMES,NAMES,' STANDARD DEVIATIONS  ',&
+    CODE,.FALSE.,NAMFLG,PRTNAM,RNUM,IOUNIT)
+
+CALL TMPRNT(UOUT,N,NAMES,' FRACTIONAL SIGMA DECOMPOSITION ',&
+    CODE,NAMFLG,PRTNAM,RNUM,IOUNIT)
+
+RETURN
+END
